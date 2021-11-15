@@ -7,8 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Instant;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +34,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 @RestController
-@RequestMapping("/convert")
+@RequestMapping("/currencyConversor")
 public class TransactionResource {
 
 	private static Logger logger = LoggerFactory.getLogger(TransactionResource.class);
@@ -42,17 +44,23 @@ public class TransactionResource {
 	@Autowired
 	private TransactionRepository transactionRepository;
 
-	@PostMapping
+	@PostMapping(value = "/convert")
 	public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction)
 			throws JsonMappingException, JsonProcessingException, MalformedURLException, IOException {
 		Double exchangeRate = findExchangeRate(transaction.getDestinationCurrency(), transaction.getOriginCurrency());
 		transaction.setExchangeRate(exchangeRate);
 		transaction.setDestinationValue(transaction.getExchangeRate() * transaction.getOriginValue());
-		Instant now = Instant.now();
-		transaction.setTransactionDate(now);
+		//Instant now = Instant.now();
+		transaction.setTransactionDate(Instant.now());
 
 		transactionRepository.save(transaction);
 		return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
+	}
+
+	@GetMapping(value = "/userTransactions/{id}")
+	public ResponseEntity<List<Transaction>> transactionsByUser(@PathVariable Long id) {
+		List<Transaction> listTrans = transactionRepository.findByUserId(id);
+		return ResponseEntity.ok(listTrans);
 	}
 
 	private Double findExchangeRate(String destinationCurrency, String originCurrency)
@@ -68,8 +76,8 @@ public class TransactionResource {
 		TypeReference<HashMap<String, Object>> typeRef = new TypeReference<>() {
 		};
 
-		Map<String, Object> malAll = new ObjectMapper().readValue(jsonobj.toString(), typeRef);
-		Map<String, Object> mapConversionRates = (Map<String, Object>) malAll.get("conversion_rates");
+		Map<String, Object> mapAll = new ObjectMapper().readValue(jsonobj.toString(), typeRef);
+		Map<String, Object> mapConversionRates = (Map<String, Object>) mapAll.get("conversion_rates");
 		Double result = Double.parseDouble(mapConversionRates.get(originCurrency).toString());
 
 		logger.info("Operation sucefully. Exchange Rate: " + result);

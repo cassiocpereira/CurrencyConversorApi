@@ -21,7 +21,7 @@ public class Transaction {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@JoinColumn(name = "user", referencedColumnName = "id")
 	private User user;
 	
 	@Column(name = "origin_currency", length = 3, nullable = false)
