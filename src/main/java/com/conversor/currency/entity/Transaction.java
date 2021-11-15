@@ -1,5 +1,6 @@
 package com.conversor.currency.entity;
 
+import java.time.Instant;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -39,7 +40,7 @@ public class Transaction {
 	private Double exchangeRate;
 	
 	@Column(name = "transaction_date", nullable = false)
-	private Date transactionDate;
+	private Instant transactionDate;
 
 	public Long getId() {
 		return id;
@@ -97,11 +98,14 @@ public class Transaction {
 		this.exchangeRate = exchangeRate;
 	}
 
-	public Date getTransactionDate() {
+	public Instant getTransactionDate() {
 		return transactionDate;
 	}
 
-	public void setTransactionDate(Date transactionDate) {
+	public void setTransactionDate(Instant transactionDate) {
 		this.transactionDate = transactionDate;
 	}
+
+
+	
 }
