@@ -12,7 +12,7 @@ import com.conversor.currency.entity.User;
 import com.conversor.currency.repository.UserRepository;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 public class UserResource {
 
 	@Autowired
