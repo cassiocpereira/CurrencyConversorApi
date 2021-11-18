@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.conversor.currency.entity.Transaction;
 
-@Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 
 	List<Transaction> findByUserId(Long id);
