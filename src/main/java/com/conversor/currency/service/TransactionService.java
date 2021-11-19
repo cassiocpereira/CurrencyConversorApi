@@ -52,7 +52,7 @@ public class TransactionService {
 			Double destinationValue = (double) Math.round(exchangeRate * dto.getOriginValue());
 
 			Optional<User> user = Optional.of(new User());
-			user = userRepository.findById(dto.getUserId());
+			user = userRepository.findById(dto.getUser());
 
 			Transaction transaction = new Transaction();
 			transaction.setOriginCurrency(dto.getOriginCurrency());

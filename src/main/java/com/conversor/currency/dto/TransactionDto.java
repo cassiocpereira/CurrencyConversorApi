@@ -1,6 +1,5 @@
 package com.conversor.currency.dto;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -9,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 public class TransactionDto {
 	
 	@NotNull
-	private Long userId;
+	private Long user;
 	@NotNull @NotEmpty @Length(min = 3, max = 3 )
 	private String originCurrency;
 	@NotNull @NotEmpty @Length(min = 3, max = 3 )
@@ -17,11 +16,11 @@ public class TransactionDto {
 	@NotNull
 	private Double originValue;
 	
-	public Long getUserId() {
-		return userId;
+	public Long getUser() {
+		return user;
 	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUser(Long user) {
+		this.user = user;
 	}
 	public String getOriginCurrency() {
 		return originCurrency;

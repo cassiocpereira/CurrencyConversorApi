@@ -29,7 +29,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/v1")
 public class TransactionResource {
 
 	private static Logger logger = LoggerFactory.getLogger(TransactionResource.class);
@@ -43,14 +43,14 @@ public class TransactionResource {
 	@Autowired
 	private UserRepository userRepository;
 
-	@PostMapping(value = "/convert", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/transaction/convert", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createTransaction(@RequestBody @Valid TransactionDto transactionDto)
 			throws JsonMappingException, JsonProcessingException, MalformedURLException, IOException {
 		try {
 			
-			logger.info("Start searching for user id " + transactionDto.getUserId());
+			logger.info("Start searching for user id " + transactionDto.getUser());
 			
-			if (userRepository.existsById(transactionDto.getUserId())) {	
+			if (userRepository.existsById(transactionDto.getUser())) {	
 				logger.info("Validating currencies " + transactionDto.getOriginCurrency() + "/"
 						+ transactionDto.getDestinationCurrency());
 				
@@ -83,7 +83,7 @@ public class TransactionResource {
 
 	}
 
-	@GetMapping(value = "/user/transactions/{id}")
+	@GetMapping(value = "/transaction/user/{id}")
 	public ResponseEntity<List<Transaction>> transactionsByUser(@PathVariable Long id) {
 		try {
 			logger.info("Searching transactions for user " + id);
