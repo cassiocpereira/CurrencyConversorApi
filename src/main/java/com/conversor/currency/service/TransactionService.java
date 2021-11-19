@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.conversor.currency.enums.CurrencyEnum;
+import com.conversor.currency.enums.ErrorMessageEnum;
 import com.conversor.currency.dto.TransactionDto;
 import com.conversor.currency.entity.Transaction;
 import com.conversor.currency.entity.User;
@@ -59,6 +61,7 @@ public class TransactionService {
 			transaction.setExchangeRate(exchangeRate);
 			transaction.setDestinationValue(destinationValue);
 			transaction.setOriginValue(dto.getOriginValue());
+			transaction.setTransactionDate(Instant.now());
 
 			transactionRepository.save(transaction);
 
@@ -110,6 +113,15 @@ public class TransactionService {
 			return false;
 		}
 
+	}
+	
+	public String getErrorMessage(ErrorMessageEnum errorMessageEnum){
+
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("error", errorMessageEnum.getErrorCode());
+		jsonObject.addProperty("message", errorMessageEnum.getErrorMessage());
+
+		return jsonObject.toString();
 	}
 
 }

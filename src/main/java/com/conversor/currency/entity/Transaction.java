@@ -40,7 +40,7 @@ public class Transaction {
 	private Double exchangeRate;
 	
 	@Column(name = "transaction_date", nullable = false)
-	private Instant transactionDate = Instant.now();
+	private Instant transactionDate;
 
 	public Long getId() {
 		return id;
