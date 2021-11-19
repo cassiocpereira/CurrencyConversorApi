@@ -106,6 +106,14 @@ public class Transaction {
 		this.transactionDate = transactionDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", user=" + user.getId() + ", originCurrency=" + originCurrency
+				+ ", destinationCurrency=" + destinationCurrency + ", originValue=" + originValue
+				+ ", destinationValue=" + destinationValue + ", exchangeRate=" + exchangeRate + ", transactionDate="
+				+ transactionDate + "]";
+	}
 
+	
 	
 }

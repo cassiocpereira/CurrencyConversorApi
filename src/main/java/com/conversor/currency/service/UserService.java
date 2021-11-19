@@ -13,16 +13,16 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	public boolean validateUser(Long id) {
-
-		Optional<User> user = userRepository.findById(id);
-		
-		if(user.get() == null) {
-			return false;	
-		}else {
-			return true;	
-		}
-	}
+	
+//	public boolean validateUser(Long id) {
+//
+//		Optional<User> user = userRepository.findById(id);
+//		
+//		if(user.get() == null) {
+//			return false;	
+//		}else {
+//			return true;	
+//		}
+//	}
 
 }
