@@ -12,6 +12,7 @@
 
 API Rest que realiza a conversão entre duas moedas, utilizando taxas de conversões atualizadas, obtidas do serviço externo [Exchange Rates](http://api.exchangeratesapi.io/latest?base=EUR)
 
+O serviço encontra-se em execução no [Heroku](https://currencyconversorapi.herokuapp.com/v1/init)
 
 ## Propósito
 
