@@ -14,10 +14,6 @@ API Rest que realiza a conversão entre duas moedas, utilizando taxas de convers
 
 O serviço encontra-se em execução no [Heroku](https://currencyconversorapi.herokuapp.com/v1/init)
 
-## Propósito
-
-Aplicação desenvolvida para atender teste de seleção da empresa [Jaya Tech](https://jaya.tech/) 
-
 
 ## Features
 
